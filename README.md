@@ -50,3 +50,5 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 
 ## Deploy on Vercel
 
+link:- https://nextjsinv.vercel.app/
+
