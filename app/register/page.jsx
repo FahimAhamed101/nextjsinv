@@ -7,29 +7,36 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import banner from "../../public/next.svg";
 import logo from "../../public/next.svg";
+import { useRouter } from 'next/navigation';
+import { useAuthStore } from "@/store/useAuthStore"
 
 function Registerpage() {
-    const [formData, setFormData] = useState({
-      name: "",
-      email: "",
-      password: "",
-    });
+  const router = useRouter();
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
-  
-    const handleOnChange = () => {
-      
-    };
-  
-    const handleSubmit = async (event) => {
-      event.preventDefault();
-    
-      
-      
-  
-    
-  
-    };
-  
+  const handleRegister = async () => {
+    try {
+      const response = await fetch('/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        setError(errorData.message);
+        return;
+      }
+
+      // Navigate to the login page upon successful registration
+      router.push('/login');
+    } catch (err) {
+      setError('Something went wrong');
+    }
+  };
     return (
       <div className="min-h-screen bg-[#fff6f4] flex">
         <div className="hidden lg:block w-1/2 bg-[#ffede1] relative overflow-hidden">
@@ -46,7 +53,7 @@ function Registerpage() {
             <div className="flex justify-center">
               <Image src={logo} width={200} height={50} alt="Logo" />
             </div>
-            <form onSubmit={handleSubmit} className="space-y-4">
+      
               <div className="space-y-1">
                 <label className="text-black font-medium leading-none peer-disabled:cursor-not-allowed " htmlFor="name">Full Name</label>
                 <Input
@@ -56,8 +63,8 @@ function Registerpage() {
                   placeholder="Enter your name"
                   required
                   className="bg-[#ffede1]"
-                  value={formData.name}
-                  onChange={handleOnChange}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                 />
               </div>
               <div className="space-y-1">
@@ -69,8 +76,8 @@ function Registerpage() {
                   className="bg-[#ffede1]"
                   placeholder="Enter your email"
                   required
-                  value={formData.email}
-                  onChange={handleOnChange}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className="space-y-1">
@@ -82,12 +89,12 @@ function Registerpage() {
                   className="bg-[#ffede1]"
                   placeholder="Enter your password"
                   required
-                  value={formData.password}
-                  onChange={handleOnChange}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
               <button
-                type="submit"
+               onClick={handleRegister}
             
                 className="w-full inline-flex items-center justify-center bg-black text-white text-center hover:bg-black transition-colors "
               >
@@ -99,13 +106,13 @@ function Registerpage() {
               <p className="text-center text-[#3f3d56] text-sm">
                 Already have an account{" "}
                 <Link
-                  href={""}
+                  href={"/login"}
                   className="text-[#000] hover:underline font-bold"
                 >
                   Sign In
                 </Link>
               </p>
-            </form>
+      
           </div>
         </div>
       </div>
