@@ -11,11 +11,13 @@ export async function POST(request){
     const { email, password } = body;
 
     try{
-         
-        const user = await prisma.user.findUnique({ where: { email,password } });
+
+        const user = await prisma.user.findUnique({ where: { email} });
+
          if (!user) return res.status(401).json({ message: 'Invalid email or password' });
 
-    const isPasswordValid = await bcrypt.hash(user.password,12);
+    const isPasswordValid = await bcrypt.compare(password, user.password )
+   
     if (!isPasswordValid) return res.status(401).json({ message: 'Invalid email or password' });
 
     const token = jwt.sign({ id: user.id }, 'secret-key', { expiresIn: '1h' }); // Replace 'secret-key' with a secure key

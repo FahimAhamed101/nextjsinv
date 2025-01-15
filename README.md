@@ -31,6 +31,7 @@ npx prisma migrate dev --name init
 
 npx prisma migrate
 
+npx prisma generate
 # run in the bash for database seeding
 node prisma/seed.js
 
