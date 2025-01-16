@@ -7,7 +7,7 @@
 
 First,install the dependencies :
 
-npm install 
+npm install && npx prisma generate
 
 Then,run the development server:
 # then
