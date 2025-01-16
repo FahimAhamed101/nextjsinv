@@ -4,8 +4,8 @@ const prisma = new PrismaClient();
 async function main() {
   await prisma.user.createMany({
     data: [
-      { name: 'Alice', email: 'alice@example.com',password:'admin1234' },
-      { name: 'Bob', email: 'bob@example.com',password:'admin1234' },
+      { name: 'Alice', email: 'alice@example.com',password:'$2b$12$7Bjb15mpn8/zSU/3cX.Hdu8RqcR5TL3oK8Nl3l1erF1Cma5wyotWu' },
+      { name: 'Bob', email: 'bob@example.com',password:'$2b$12$7Bjb15mpn8/zSU/3cX.Hdu8RqcR5TL3oK8Nl3l1erF1Cma5wyotWu' },
     ],
   });
   console.log('Seed data created.');
