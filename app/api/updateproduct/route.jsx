@@ -10,9 +10,9 @@ export async function PATCH (request){
         description,
         category,
       
-        link,
+     
         images,
-        userId,
+     
         
     } = body
 
@@ -27,9 +27,9 @@ export async function PATCH (request){
                 description,
                 category,
               
-                link,
+              
                 images,
-                userId,
+         
                
             }
         })

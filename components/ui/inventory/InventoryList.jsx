@@ -5,7 +5,7 @@ import { inventoryReducer, initialState } from "./inventoryReducer.js";
 import { FETCH_ACTIONS } from "./index1.js"
 import Link from 'next/link'
 import axios from "axios";
-
+import DeleteProduct from './DeleteProduct.jsx';
 const InventoryList = () => {
 
   const [state, dispatch] = useReducer(inventoryReducer, initialState);
@@ -62,7 +62,11 @@ const InventoryList = () => {
           
           
                         </div>
-                 
+                        <Link className='' href={`/edit/${item.id}`}>
+                                <span className='p-2 bg-green-600 rounded-full text-white cursor-pointer'>
+                                    edit
+                                </span>
+                            </Link> <DeleteProduct productId={item.id} />
                       </div>
                 
               </>
