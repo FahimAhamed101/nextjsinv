@@ -2,20 +2,14 @@
 
 import Image from "next/image";
 import prisma from "@/app/prismadb"
-import Link from 'next/link';
-import { useAuthStore } from "@/store/useAuthStore"
 
 
+import InventoryList from "../components/ui/inventory/InventoryList.jsx";
+import Nav from "../components/ui/Nav.jsx";
 export default function Home() {
 
 
-  const { user, isAuthenticated, logout } = useAuthStore();
-  const handleLogout = () => {
-    localStorage.removeItem('authToken');
-    logout();
-
-    router.push('/pages');
-  };
+ 
 
    /*  
      const allmyuser = await prisma.user.findMany()
@@ -30,35 +24,13 @@ export default function Home() {
 
   return (
 <div>
-<nav style={{ display: 'flex', justifyContent: 'space-between', padding: '1rem' }}>
-      <div>
-        <Link href="/">Home</Link>
-      
-      </div>
-      <div>
-       
-      {isAuthenticated ? (
-          <>
-            <span>Welcome, {user?.name}</span>
-            <button onClick={handleLogout} style={{ marginLeft: '1rem' }}>Logout</button>
-          </>
-        ) : (
-          <>
-            <Link href="/login">Login</Link>
-            <Link href="/register" style={{ marginLeft: '1rem' }}>Register</Link>
-          </>
-        )}
-         
-      </div>
-    </nav>
-        <ul>
-          
 
-        </ul>
-
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       
-      
+<Nav/>
+    <div className="text-center">
+    <h2 className="text-3xl mt-4">Item List</h2>
+    
+    <InventoryList/>
       
       
       { /*  {allmyuser.map((user) => (
