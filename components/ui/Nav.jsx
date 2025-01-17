@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Link from 'next/link';
-import {Menu,Apple  } from "lucide-react";
+import {Menu,Apple ,House , CirclePlus} from "lucide-react";
 import { useAuthStore } from "@/store/useAuthStore"
 const Nav = () => {
     let Links =[
@@ -35,8 +35,8 @@ const Nav = () => {
       <ul className={`md:flex md:items-center md:pb-0 pb-12 absolute md:static bg-white md:z-auto z-[-1] left-0 w-full md:w-auto md:pl-0 pl-9 transition-all duration-500 ease-in ${open ? 'top-20 ':'top-[-490px]'}`}>
         {
           Links.map((link)=>(
-            <li key={link.name} className='md:ml-8 text-xl md:my-0 my-7'>
-              <a href={link.link} className='text-gray-800 hover:text-gray-400 duration-500'>{link.name}</a>
+            <li key={link.name} className='md:ml-8 text-xl md:my-0  my-7 '>
+              <a href={link.link} className='md:flex md:items-center text-gray-800 hover:text-gray-400 duration-500 '><House className='m-2' />  {link.name}</a>
             </li>
           ))
         }
@@ -48,7 +48,7 @@ const Nav = () => {
         ) : (
           <>
           <li  className='md:ml-8 text-xl md:my-0 my-7'>
-            <Link className='text-gray-800 hover:text-gray-400 duration-500' href="/addproduct">Add Products</Link>
+            <Link className='text-gray-800 hover:text-gray-400 duration-500 md:flex md:items-center' href="/addproduct">  <CirclePlus className='mx-1' />Add Products</Link>
          
             </li>
             <li  className='md:ml-8 text-xl md:my-0 my-7'>

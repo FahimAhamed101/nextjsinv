@@ -6,6 +6,7 @@ import { FETCH_ACTIONS } from "./index1.js"
 import Link from 'next/link'
 import axios from "axios";
 import DeleteProduct from './DeleteProduct.jsx';
+
 const InventoryList = () => {
 
   const [state, dispatch] = useReducer(inventoryReducer, initialState);
