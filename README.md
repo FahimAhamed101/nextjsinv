@@ -1,3 +1,7 @@
+## Deployed on Vercel
+
+link:- https://nextjsinv.vercel.app/ 
+
 
 ## Project setup 
 
@@ -7,7 +11,7 @@
 
 First,install the dependencies :
 
-npm install && npx prisma generate
+npm install --force && npx prisma generate
 
 Then,run the development server:
 # then
@@ -49,7 +53,5 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 ## Learn More
 
 
-## Deploy on Vercel
 
-link:- https://nextjsinv.vercel.app/
 
