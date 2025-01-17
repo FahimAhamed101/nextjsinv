@@ -24,7 +24,7 @@ const DeleteProduct = ({productId}) => {
         }
     }
   return (
-    <div onClick={handleDelete} className='cursor-pointer'>
+    <div onClick={handleDelete} className='border-2 hover:bg-red-500 hover:text-black border-red-500 px-4 pt-2 py-2 text-black cursor-pointer'>
         delete
     </div>
   )

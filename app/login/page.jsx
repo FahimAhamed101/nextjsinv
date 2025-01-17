@@ -12,17 +12,20 @@ import { useRouter } from 'next/navigation';
 
 
 function Loginpage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-
-
+  const [errors, setErrors] = useState({});
+  const [formData, setFormData] = useState({ email: "", password: "" });
 
   
   const login = useAuthStore((state) => state.login);
   const router = useRouter();
-
-  const handleOnChange = (event) => {
+  const validate = () => {
+    const errors = {};
+    if (!formData.email.includes("@")) errors.email = "Invalid email format.";
+    if (formData.password.length < 6)
+      errors.password = "Password must be at least 6 characters.";
+    return errors;
+  };
+  const handleChange = (event) => {
     setFormData((prev) => ({
       ...prev,
       [event.target.name]: event.target.value,
@@ -31,17 +34,22 @@ function Loginpage() {
 
   const handleLogin = async (event) => {
     event.preventDefault();
- 
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
     try {
       const response = await fetch('/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify(formData),
       });
 
       if (!response.ok) {
         const errorData = await response.json();
-        setError(errorData.message);
+        setErrors(errorData.message);
         return;
       }
 
@@ -50,7 +58,7 @@ function Loginpage() {
       login(user);
       router.push('/');
     } catch (err) {
-      setError('Something went wrong');
+      setErrors('Something went wrong');
     }
   };
     
@@ -82,11 +90,12 @@ function Loginpage() {
                 className="bg-[#ffede1]"
                 placeholder="Enter your email"
                 required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={formData.email}
+          onChange={handleChange}
               />
+                 {errors.email && <p className="text-center text-[red] text-sm">{errors.email}</p>}
             </div>
-            <div className="space-y-1">
+            <div className="space-y-1 pb-2">
               <label className="text-black "  htmlFor="name">Password</label>
               <Input
                 id="password"
@@ -96,9 +105,10 @@ function Loginpage() {
                 placeholder="Enter your password"
                 required
              
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={formData.password}
+                onChange={handleChange}
               />
+                 {errors.password && <p className="text-center text-[red] text-sm">{errors.password}</p>}
             </div>
             <button
               onClick={handleLogin}
@@ -106,6 +116,7 @@ function Loginpage() {
             >
               LOGIN
             </button>
+         
             <p className="text-center text-[#3f3d56] text-sm">
               New here{" "}
               <Link

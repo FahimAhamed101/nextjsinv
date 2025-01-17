@@ -6,7 +6,7 @@ import Edit from '../Edit.jsx'
 
 
 const EditProduct = async ({params}) => {
-    const { slug } = params; // Slug might be a string
+    const { slug } = await params; // Slug might be a string
     const id = parseInt(slug); // Convert it to an integer
   console.log(slug)
     if (isNaN(id)) {

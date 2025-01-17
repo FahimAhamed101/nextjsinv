@@ -12,29 +12,51 @@ import { useAuthStore } from "@/store/useAuthStore"
 
 function Registerpage() {
   const router = useRouter();
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+
+  const [errors, setErrors] = useState({});
+  const [formData, setFormData] = useState({name:"", email: "", password: "" });
+  
+  const validate = () => {
+    const errors = {};
+    if (!formData.name.length > 3 ) errors.name = "Invalid name format.";
+    if (!formData.email.includes("@")) errors.email = "Invalid email format.";
+    if (formData.password.length < 6)
+      errors.password = "Password must be at least 6 characters.";
+    return errors;
+  };
+  const handleChange = (event) => {
+    setFormData((prev) => ({
+      ...prev,
+      [event.target.name]: event.target.value,
+    }));
+  };
+
 
   const handleRegister = async () => {
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
+
     try {
       const response = await fetch('/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, password }),
+        body: JSON.stringify(formData),
       });
 
       if (!response.ok) {
         const errorData = await response.json();
-        setError(errorData.message);
+        setErrors(errorData.message);
         return;
       }
 
       // Navigate to the login page upon successful registration
       router.push('/login');
     } catch (err) {
-      setError('Something went wrong');
+      setErrors('Something went wrong');
     }
   };
     return (
@@ -63,9 +85,10 @@ function Registerpage() {
                   placeholder="Enter your name"
                   required
                   className="bg-[#ffede1]"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  value={formData.name}
+          onChange={handleChange}
                 />
+                  {errors.name && <p className="text-center text-[red] text-sm">{errors.name}</p>}
               </div>
               <div className="space-y-1">
                 <label className="text-black " htmlFor="name">Email</label>
@@ -76,11 +99,12 @@ function Registerpage() {
                   className="bg-[#ffede1]"
                   placeholder="Enter your email"
                   required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  value={formData.email}
+                  onChange={handleChange}
                 />
+                  {errors.email && <p className="text-center text-[red] text-sm">{errors.email}</p>}
               </div>
-              <div className="space-y-1">
+              <div className="space-y-1 pb-2">
                 <label className="text-black " htmlFor="name">Password</label>
                 <Input
                   id="password"
@@ -89,10 +113,11 @@ function Registerpage() {
                   className="bg-[#ffede1]"
                   placeholder="Enter your password"
                   required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  value={formData.password}
+                  onChange={handleChange}
                 />
               </div>
+              {errors.password && <p className="text-center text-[red] text-sm">{errors.password}</p>}
               <button
                onClick={handleRegister}
             

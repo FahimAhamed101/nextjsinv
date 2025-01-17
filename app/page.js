@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import prisma from "@/app/prismadb"
-
+import {motion} from "framer-motion";
 
 import InventoryList from "../components/ui/inventory/InventoryList.jsx";
 import Nav from "../components/ui/Nav.jsx";
@@ -27,10 +27,33 @@ export default function Home() {
 
       
 <Nav/>
-    <div className="text-center">
-    <h2 className="text-3xl mt-4">Item List</h2>
-    
-    <InventoryList/>
+<motion.div
+      initial={{opacity: 0, y: 100}}
+      animate={{
+        opacity: 1,
+        y: 0,
+	  transition:{duration:0.5}
+      }}
+    >
+    <div className="text-center justify-center items-center h-screen bg-blue-500">
+    <div className="flex min-h-screen">
+
+  <div className="w-1/3 grid bg-blue-500 text-white justify-center items-center  p-8">
+  <div>
+        <h1 className="text-black">Welcome to the Home Page</h1>
+      </div>
+  </div>
+
+  <div className="w-2/3 bg-gray-100 p-8">
+  <div>
+        <InventoryList/>
+    </div>
+  </div>
+</div>
+
+ 
+  
+  
       
       
       { /*  {allmyuser.map((user) => (
@@ -47,7 +70,7 @@ export default function Home() {
                 </div>
             ))} */}
     </div>
-    
+    </motion.div>
     </div>
   );
 }
