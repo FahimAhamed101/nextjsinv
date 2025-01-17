@@ -19,7 +19,7 @@ const InventoryList = () => {
 
     const getItems = async () => {
       try{
-        let response = await axios.get("http://localhost:3000/api/products");
+        let response = await axios.get("api/products");
         if (response.status === 200) {
           dispatch({type: FETCH_ACTIONS.SUCCESS, data: response.data});
         }
