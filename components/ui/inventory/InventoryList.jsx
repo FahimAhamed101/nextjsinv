@@ -12,7 +12,7 @@ const InventoryList = () => {
   const [state, dispatch] = useReducer(inventoryReducer, initialState);
 
   const { items, loading, error} = state;
-
+,
   console.log(items, loading, error);
 
   useEffect(() => {
