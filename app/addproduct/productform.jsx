@@ -19,7 +19,7 @@ const Productform = () => {
     
         images:'',
     
-        store:''
+        
     })
 
   
