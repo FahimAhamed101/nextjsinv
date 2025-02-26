@@ -1,7 +1,6 @@
-const FETCH_ACTIONS = {
-    PROGRESS: 'progress',
-    SUCCESS: 'success',
-    ERROR: 'error',
-  }
-  
-  export {FETCH_ACTIONS};
+export const FETCH_ACTIONS = {
+  PROGRESS: 'PROGRESS',
+  SUCCESS: 'SUCCESS',
+  ERROR: 'ERROR',
+  DELETE: 'DELETE',
+};
